@@ -1,70 +1,76 @@
-let elMostrarBtn = document.getElementById("mostrarBtn");
+let elMostrarBtn = document.getElementById("mostrar-btn");
 
 const isOk = true;
 const productos = [
   {
     id: 1,
-    title: "Agua con gas 1.5L",
-    price: 50,
+    name: "Plátano",
+    price: 500,
     stock: 90,
     image:
-      "https://www.coca-cola.com.ar/content/dam/journey/ar/es/private/brands/coca-cola/zero-sugar/zero-sugar-bottle.png",
+      "https://jumbo.vtexassets.com/arquivos/ids/424556/Platano-granel.jpg?v=637521224867200000",
   },
   {
     id: 2,
-    title: "Vino Santiago",
-    price: 45,
+    name: "Melon",
+    price: 450,
     stock: 100,
-    image:
-      "https://www.coca-cola.com.ar/content/dam/journey/ar/es/private/brands/coca-cola/zero-sugar/zero-sugar-bottle.png",
+    image: "https://cdn.alsuper.com/products/20.png",
   },
   {
     id: 3,
-    title: "Manzana",
-    price: 10,
+    name: "Manzana roja",
+    price: 900,
     stock: 60,
     image:
-      "https://www.coca-cola.com.ar/content/dam/journey/ar/es/private/brands/coca-cola/zero-sugar/zero-sugar-bottle.png",
+      "https://i0.wp.com/procamp.cl/wp-content/uploads/2020/07/manzana-pink-lady.png?fit=600%2C600&ssl=1",
   },
   {
     id: 4,
-    title: "Pera",
-    price: 15,
+    name: "Pera",
+    price: 750,
     stock: 10,
     image:
-      "https://www.coca-cola.com.ar/content/dam/journey/ar/es/private/brands/coca-cola/zero-sugar/zero-sugar-bottle.png",
+      "https://jumbo.vtexassets.com/arquivos/ids/424557/Pera-Packam-s-granel.jpg?v=637521224872970000",
   },
   {
     id: 5,
-    title: "Naranja",
-    price: 20,
+    name: "Naranja",
+    price: 2000,
     stock: 60,
     image:
-      "https://www.coca-cola.com.ar/content/dam/journey/ar/es/private/brands/coca-cola/zero-sugar/zero-sugar-bottle.png",
+      "https://jumbo.vtexassets.com/arquivos/ids/416123/Naranja-granel.jpg?v=637479989555470000",
   },
   {
     id: 6,
-    title: "Banana",
-    price: 25,
+    name: "Piña",
+    price: 2500,
     stock: 10,
     image:
-      "https://www.coca-cola.com.ar/content/dam/journey/ar/es/private/brands/coca-cola/zero-sugar/zero-sugar-bottle.png",
+      "https://jumbo.vtexassets.com/arquivos/ids/415957/Pi%C3%B1a-un.jpg?v=637479988438830000",
   },
   {
     id: 7,
-    title: "Cebolla",
-    price: 5,
+    name: "Chirimolla",
+    price: 5000,
     stock: 90,
     image:
-      "https://www.coca-cola.com.ar/content/dam/journey/ar/es/private/brands/coca-cola/zero-sugar/zero-sugar-bottle.png",
+      "https://i0.wp.com/procamp.cl/wp-content/uploads/2020/07/chirimoya.png?fit=600%2C600&ssl=1",
   },
   {
     id: 8,
-    title: "Tomate",
-    price: 30,
+    name: "Frutilla",
+    price: 3000,
     stock: 70,
     image:
-      "https://www.coca-cola.com.ar/content/dam/journey/ar/es/private/brands/coca-cola/zero-sugar/zero-sugar-bottle.png",
+      "https://jumbo.vtexassets.com/arquivos/ids/320032/Frutilla-500-gr-1-387299.jpg?v=637111641721400000",
+  },
+  {
+    id: 9,
+    name: "Durazno",
+    price: 1000,
+    stock: 70,
+    image: "https://procamp.cl/wp-content/uploads/2020/07/durazno-platano.png",
   },
 ];
 
@@ -79,23 +85,43 @@ const customFetch = (time, task) => {
     }, time);
   });
 };
-/*const mostrarProductos = () => {
-  let lista = document.createElement("ul");
-  for (let i = 0; i < productos.length; i++) {
-    let p = document.createElement("li");
-    p.innerHTML = productos[i].title;
-    lista.append(p);
-  }
-  document.getElementById("root").append(lista);
-};*/
+
+/* Guia html
+*       <div class="product" data-name="p-1">
+            <img src="https://picsum.photos/200/300" alt="product">
+            <h3>Producto 1</h3>
+            <div class="price">100</div>
+        </div>
+*
+* */
 
 const mostrarProductos = () => {
   customFetch(2000, productos).then((data) => {
-    let elRoot = document.getElementById("root");
+    console.log(data, "data");
+    let productsContainer = document.getElementById("products-container");
+    console.log(productsContainer, "productsContainer");
+
     for (let i = 0; i < data.length; i++) {
-      let p = document.createElement("div");
-      p.innerHTML = data[i].title;
-      elRoot.append(p);
+      let divProduct = document.createElement("div");
+      divProduct.classList.add("product");
+      divProduct.setAttribute("data-name", `p-${data[i].id}`);
+      productsContainer.append(divProduct);
+
+      let img = document.createElement("img");
+      img.classList.add("img");
+      console.log(img.src); /*  <div>Agua con gas 1.5L</div> */
+      img.src = data[i].image;
+      divProduct.append(img);
+
+      let h3 = document.createElement("h3");
+      h3.innerHTML = data[i].name;
+      divProduct.append(h3);
+
+      let divPrice = document.createElement("div");
+      divPrice.classList.add("price");
+      divPrice.innerHTML = Number(data[i].price).toLocaleString("es-CL");
+      divPrice.classList.add("currSign");
+      divProduct.append(divPrice);
     }
   });
 };
