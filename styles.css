@@ -96,6 +96,15 @@ body {
     cursor: pointer;
 }
 
+.meli-btn {
+    flex: 1 1 16rem;
+    padding: 1rem 2rem 1rem 2rem;
+    background: #27ae60;
+    color: #fff;
+    font-size: 1.6rem;
+    border-radius: .5rem;
+    cursor: pointer;
+}
 
 .currSign:before {
     content: '$';
