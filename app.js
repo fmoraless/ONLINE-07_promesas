@@ -2,6 +2,8 @@ import { productos } from "./products.js";
 
 let elMostrarBtn = document.getElementById("mostrar-btn");
 let elMeliBtn = document.getElementById("meli-btn");
+/*let elAntBtn = document.getElementById("ant-btn");
+let elSigBtn = document.getElementById("sig-btn");*/
 let productsContainer = document.getElementById("products-container");
 
 let productsContainerMeli = document.getElementById("products-container-meli");
@@ -79,7 +81,13 @@ const mostrarProductos = () => {
 
 elMostrarBtn.addEventListener("click", mostrarProductos, false);
 
+/*elAntBtn.addEventListener("click", () => {
+  pagina += 1;
+  getMeliProducts();
+});*/
+
 const apiUrl = "https://api.mercadolibre.com/sites/MLC/search";
+let pagina = 1;
 const getMeliProducts = async () => {
   cleanContainer((action = "getMeliProducts"));
   let productsContainerMeli = document.getElementById(
@@ -91,8 +99,10 @@ const getMeliProducts = async () => {
     const respuesta = await axios.get(apiUrl, {
       params: {
         q: "agua",
+        page: pagina,
       },
     });
+    console.log(respuesta.data.results, "respuesta.data.results");
     respuesta.data.results.forEach((product) => {
       console.log(product, "product");
       let divProduct = document.createElement("div");
@@ -116,10 +126,10 @@ const getMeliProducts = async () => {
       divPrice.classList.add("currSign");
       divProduct.append(divPrice);
 
-      /* TODO: agregar clase para cantidad*/
       let divQty = document.createElement("div");
-      divQty.classList.add("price");
+      divQty.classList.add("Qty");
       divQty.innerHTML = Number(product.available_quantity);
+      divQty.classList.add("currQty");
       divProduct.append(divQty);
     });
     console.log(respuesta.data.results, "respuestaMeli");

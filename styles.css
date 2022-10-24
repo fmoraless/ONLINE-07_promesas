@@ -106,8 +106,35 @@ body {
     cursor: pointer;
 }
 
+.anterior {
+    flex: 1 1 16rem;
+    padding: 1rem 2rem 1rem 2rem;
+    margin-top: 1rem;
+    background: #107999;
+    color: #fff;
+    font-size: 1.6rem;
+    border-radius: .5rem;
+    cursor: pointer;
+}
+
+.siguiente {
+    flex: 1 1 16rem;
+    padding: 1rem 2rem 1rem 2rem;
+    margin-top: 1rem;
+    background: #107999;
+    color: #fff;
+    font-size: 1.6rem;
+    border-radius: .5rem;
+    cursor: pointer;
+}
+
+
 .currSign:before {
     content: '$';
+}
+
+.currQty:before {
+    content: ' Stock : ';
 }
 
 .box-productos {
